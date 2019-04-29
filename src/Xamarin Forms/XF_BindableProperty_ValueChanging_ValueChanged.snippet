@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Bindable Property (value changed, value changing)</Title>
+      <Description>Bindable property with value changed and value changing.</Description>
+      <Shortcut>xfbp</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>property</ID>
+          <ToolTip>Property Name</ToolTip>
+          <Default>MyProperty</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>type</ID>
+          <ToolTip>Property Type</ToolTip>
+          <Default>object</Default>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ownerclass</ID>
+          <ToolTip>The owning class of this property (which is typically the class in which it is declared).</ToolTip>
+          <Default>ownerclass</Default>
+          <Function>ClassName()</Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>bindingMode</ID>
+          <ToolTip>bindingMode</ToolTip>
+          <Default>Default</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[
+        #region $property$
+        
+        /// <summary>
+        /// Identifies the <see cref="$property$"/> bindable property.
+        /// </summary>
+        public static readonly BindableProperty $property$Property =
+            BindableProperty.Create(nameof($property$),
+              typeof($type$),
+              typeof($ownerclass$),
+              defaultValue: default($type$),
+              defaultBindingMode: BindingMode.$bindingMode$,
+              propertyChanged: (bindable, oldValue, newValue) => (($ownerclass$)bindable).On$property$Changed(($type$)oldValue, ($type$)newValue),
+              propertyChanging: (bindable, oldValue, newValue) => (($ownerclass$)bindable).On$property$Changing(($type$)oldValue, ($type$)newValue));
+
+        /// <summary>
+        /// Invoked before changes are applied to the <see cref="$property$"/> property.
+        /// </summary>
+        /// <param name="oldValue">The old value of the <see cref="$property$"/> property.</param>
+        /// <param name="newValue">The new value of the <see cref="$property$"/> property.</param>
+        protected virtual void On$property$Changing($type$ oldValue, $type$ newValue)
+        {
+            $end$
+        }
+
+        /// <summary>
+        /// Invoked after changes have been applied to the <see cref="$property$"/> property.
+        /// </summary>
+        /// <param name="oldValue">The old value of the <see cref="$property$"/> property.</param>
+        /// <param name="newValue">The new value of the <see cref="$property$"/> property.</param>
+        protected virtual void On$property$Changed($type$ oldValue, $type$ newValue)
+        {
+
+        }
+
+        /// <summary>
+        /// Gets or sets the <see cref="$property$" /> property. This is a bindable property.
+        /// </summary>
+        public $type$ $property$ 
+        {
+            get { return ($type$)GetValue($property$Property); }
+            set { SetValue($property$Property, value); }
+        }
+
+        #endregion $property$
+        ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
